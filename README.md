@@ -105,7 +105,7 @@ cd audit-tool
 
 ```bash
 npm install                  # installs all workspaces, builds shared/ via postinstall
-cp .env.example server/.env
+cp server/.env.example server/.env
 ```
 
 Edit `server/.env`:
@@ -244,9 +244,39 @@ npm run test:integration  # server integration tests only (spins up an in-memory
 npm run test:e2e          # Playwright, requires: npx playwright install chromium --with-deps
 ```
 
+## Database seeding
+
+```bash
+npm run db:seed
+```
+
+Wipes every collection in `MONGODB_URI` and repopulates it with representative data covering
+every use case in the data model:
+
+- 1 admin, 2 managers (one per team), 6 auditors across 2 teams, spread across several IANA
+  timezones (`America/New_York`, `Europe/Paris`, `Asia/Singapore`, `Asia/Tokyo`)
+- 4 audit types with distinct required skills and default durations
+- 8 audits covering all 7 lifecycle statuses, including both cancellation paths (cancelled
+  before vs. after being scheduled), each with a realistic `statusHistory`
+- 4 assignments (proposed/confirmed/completed) linking auditors to scheduled, in-progress,
+  completed, and archived audits
+- Auditor availability covering all 3 kinds: a recurring Mon–Fri working pattern for every
+  auditor, a one-off vacation block, a one-off partial-day unavailability, and a one-off extra
+  working exception outside the recurring pattern
+- An `AuditLog` entry behind every action above
+
+All seeded accounts share the password `ChangeMe123!` (e.g. `admin@audit-tool.local`,
+`finance.manager@audit-tool.local`, `elena.torres@audit-tool.local` — see
+`server/src/scripts/seed.ts` for the full list). The script refuses to run against
+`NODE_ENV=production` unless you pass `--force`, since it deletes existing data — never run it
+against a real organization's database. To pass `--force`, run it directly in the server
+workspace: `npm run db:seed --workspace=server -- --force`.
+
 ## Status
 
 Phase 0 (foundation) complete: monorepo scaffold, strict TypeScript, Express app with security
 middleware (helmet, CORS, MongoDB-backed sessions, rate limiting), Mongoose connection, and the
-Svelte 5 app shell with a light/dark theme system. Auth/RBAC, the audit lifecycle, the scheduling
-engine, and role dashboards follow in subsequent phases.
+Svelte 5 app shell with a light/dark theme system. Mongoose models for all seven entities (User,
+Team, AuditType, Audit, Assignment, AvailabilityEntry, AuditLog) and a full seed script are in
+place. Auth/RBAC, the REST API, the scheduling engine, and role dashboards follow in subsequent
+phases.

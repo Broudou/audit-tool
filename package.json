@@ -21,7 +21,8 @@
     "typecheck": "npm run build --workspace=shared && npm run typecheck --workspace=server && npm run typecheck --workspace=web",
     "test": "npm run test --workspace=server && npm run test:unit --workspace=web",
     "test:integration": "npm run test:integration --workspace=server",
-    "test:e2e": "npm run test:e2e --workspace=web"
+    "test:e2e": "npm run test:e2e --workspace=web",
+    "db:seed": "npm run db:seed --workspace=server"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",
