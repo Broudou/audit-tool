@@ -1,0 +1,30 @@
+{
+  "name": "audit-tool",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Enterprise audit management and auditor scheduling platform",
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "postinstall": "npm run build --workspace=shared",
+    "dev": "concurrently -n shared,server,web -c magenta,blue,green \"npm run dev --workspace=shared\" \"npm run dev --workspace=server\" \"npm run dev --workspace=web\"",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:web": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=shared && npm run build --workspace=server && npm run build --workspace=web",
+    "start": "npm run start --workspace=server",
+    "typecheck": "npm run build --workspace=shared && npm run typecheck --workspace=server && npm run typecheck --workspace=web",
+    "test": "npm run test --workspace=server && npm run test:unit --workspace=web",
+    "test:integration": "npm run test:integration --workspace=server",
+    "test:e2e": "npm run test:e2e --workspace=web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,122 @@
+:root {
+  color-scheme: light;
+
+  --color-bg: #f4f6f8;
+  --color-bg-elevated: #ffffff;
+  --color-bg-sunken: #e8ebee;
+  --color-border: #cbd2d9;
+  --color-border-strong: #9aa5b1;
+
+  --color-text: #1a2230;
+  --color-text-muted: #4b5566;
+  --color-text-inverse: #f4f6f8;
+
+  --color-accent: #0b5fff;
+  --color-accent-strong: #0a4fd1;
+  --color-accent-text: #ffffff;
+
+  --color-success: #0a7d3a;
+  --color-success-bg: #e3f6e9;
+  --color-warning: #8a5a00;
+  --color-warning-bg: #fdf1da;
+  --color-danger: #b00020;
+  --color-danger-bg: #fbe4e8;
+  --color-info: #0b5fff;
+  --color-info-bg: #e5edff;
+
+  --focus-ring: 0 0 0 3px rgba(11, 95, 255, 0.45);
+
+  --font-sans:
+    'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.08);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.12);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: #0f1520;
+  --color-bg-elevated: #161e2c;
+  --color-bg-sunken: #0a0e16;
+  --color-border: #2a3444;
+  --color-border-strong: #3d4a5f;
+
+  --color-text: #e6eaf0;
+  --color-text-muted: #9aa7ba;
+  --color-text-inverse: #0f1520;
+
+  --color-accent: #4c8dff;
+  --color-accent-strong: #74a6ff;
+  --color-accent-text: #0a1220;
+
+  --color-success: #3fd17d;
+  --color-success-bg: #10331f;
+  --color-warning: #f2b23d;
+  --color-warning-bg: #3a2a08;
+  --color-danger: #ff6b7a;
+  --color-danger-bg: #3a1015;
+  --color-info: #4c8dff;
+  --color-info-bg: #142440;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
