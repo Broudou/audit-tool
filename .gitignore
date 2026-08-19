@@ -1,6 +1,8 @@
 node_modules/
 dist/
 build/
+.svelte-kit/
+vite.config.ts.timestamp-*
 .env
 .env.*.local
 !.env.example

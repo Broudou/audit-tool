@@ -1,5 +1,23 @@
-export default {
+import adapter from '@sveltejs/adapter-static';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  preprocess: vitePreprocess(),
   compilerOptions: {
     runes: true,
   },
+  kit: {
+    // Pure client-rendered SPA (see src/routes/+layout.ts: `ssr = false`) that talks to the
+    // separate Express API — adapter-static's SPA fallback serves every route from one shell.
+    adapter: adapter({
+      pages: 'build',
+      assets: 'build',
+      fallback: 'index.html',
+      precompress: false,
+      strict: true,
+    }),
+  },
 };
+
+export default config;

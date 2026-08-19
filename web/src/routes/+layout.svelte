@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { themeStore } from './lib/theme/theme.svelte';
+  import type { Snippet } from 'svelte';
+  import { themeStore } from '$lib/theme/theme.svelte';
+  import '../app.css';
+
+  let { children }: { children: Snippet } = $props();
 </script>
 
 <div class="shell">
@@ -16,8 +20,7 @@
   </header>
 
   <main class="content">
-    <h1>Foundation ready</h1>
-    <p class="muted">Auth, dashboards, and scheduling land in the next phases.</p>
+    {@render children()}
   </main>
 </div>
 
@@ -63,9 +66,5 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-  }
-
-  .muted {
-    color: var(--color-text-muted);
   }
 </style>

@@ -36,7 +36,7 @@ The application is single-tenant: one deployment serves one organization.
 
 | Layer | Technology |
 |---|---|
-| Frontend | [Svelte 5](https://svelte.dev) (runes) + [Vite 8](https://vitejs.dev), TypeScript (strict) |
+| Frontend | [Svelte 5](https://svelte.dev) (runes) + [SvelteKit 2](https://kit.svelte.dev) on [Vite 8](https://vitejs.dev), built to a static SPA via `@sveltejs/adapter-static`, TypeScript (strict) |
 | Backend | [Node.js](https://nodejs.org) 20 LTS + [Express](https://expressjs.com), TypeScript (strict) |
 | Database | [MongoDB](https://www.mongodb.com) + [Mongoose](https://mongoosejs.com) 8.2 |
 | Shared | Zod schemas / TS types shared between client and server (`shared/` workspace) |
@@ -52,7 +52,7 @@ Repository layout:
 audit-tool/
   shared/   Zod schemas + TypeScript types used by both client and server
   server/   Express + Mongoose REST API
-  web/      Vite + Svelte 5 SPA
+  web/      SvelteKit (Svelte 5, static adapter) SPA — file-based routing under web/src/routes
 ```
 
 ## 3. Setting up the server on an Ubuntu 24.04 VPS
@@ -124,7 +124,7 @@ SESSION_TTL_HOURS=8
 ### 3.6 Build
 
 ```bash
-npm run build   # builds shared/, server/dist, and web/dist
+npm run build   # builds shared/dist, server/dist, and web/build (static SPA output)
 ```
 
 ### 3.7 Run the server as a systemd service
@@ -173,7 +173,7 @@ server {
     listen 80;
     server_name your-domain.example;
 
-    root /opt/audit-tool/web/dist;
+    root /opt/audit-tool/web/build;
     index index.html;
 
     location /api/ {
